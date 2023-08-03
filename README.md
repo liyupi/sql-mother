@@ -8,7 +8,7 @@
 
 在线体验：http://sqlmother.yupi.icu
 
-视频演示：待补充地址
+视频演示：https://www.bilibili.com/video/BV1pV4y1i7LW
 
 
 

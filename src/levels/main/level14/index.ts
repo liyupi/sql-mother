@@ -7,7 +7,7 @@ export default {
   initSQL: sql,
   content: md,
   defaultSQL: "select * from student",
-  answer: "select date() as 当前日期, name from student",
+  answer: "select name, date() as 当前日期 from student",
   hint: "请仔细查看本关给出的示例",
   type: "main",
 } as LevelType;

@@ -12,8 +12,8 @@ export default {
     "    id,\n" +
     "    name,\n" +
     "    age,\n" +
-    "    class_id,\n" +
     "    score,\n" +
+    "    class_id,\n" +
     "    AVG(score) OVER (PARTITION BY class_id) AS class_avg_score\n" +
     "FROM\n" +
     "    student;",

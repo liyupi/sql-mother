@@ -49,7 +49,7 @@
 import SqlEditor from "../components/SqlEditor.vue";
 import QuestionBoard from "../components/QuestionBoard.vue";
 import SqlResult from "../components/SqlResult.vue";
-import { computed, ref } from "vue";
+import { computed, ref, watch } from "vue";
 import { QueryExecResult } from "sql.js";
 import { allLevels, getLevelByKey } from "../levels";
 import { checkResult } from "../core/result";
@@ -71,7 +71,15 @@ const result = ref<QueryExecResult[]>([]);
 const answerResult = ref<QueryExecResult[]>([]);
 const errorMsgRef = ref<string>();
 const resultStatus = ref<number>(-1);
-const activeKeys = ref(["result"]);
+const defaultActiveKeys = ["result"];
+const activeKeys = ref([...defaultActiveKeys]);
+
+/**
+ * 切换关卡时，重置状态
+ */
+watch([level], () => {
+  activeKeys.value = [...defaultActiveKeys];
+});
 
 /**
  * 执行结果

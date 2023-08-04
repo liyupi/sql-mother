@@ -4,7 +4,7 @@ create table if not exists `student`
     `id`       integer          not null primary key AUTOINCREMENT,
     `name`     varchar(256)     not null,
     `age`      int              null,
-    `class_id`    bigint           not null,
+    `class_id` bigint           not null,
     `score`    double default 0 null,
     `exam_num` int    default 0 null
 );

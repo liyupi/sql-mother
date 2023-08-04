@@ -22,7 +22,6 @@ HAVING 子句与条件查询 WHERE 子句的区别在于，WHERE 子句用于在
 1）使用 HAVING 子句查询订单数超过 1 的客户：
 
 ```sql
--- 查询学生人数超过2人的班级
 SELECT customer_id, COUNT(order_id) AS order_num
 FROM orders
 GROUP BY customer_id

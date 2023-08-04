@@ -59,4 +59,4 @@ GROUP BY customer_id;
 
 ## 题目
 
-假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`class_id`（班级编号）、`score`（成绩）。请你编写一个 SQL 查询，统计学生表中每个班级的平均成绩（avg_score）。
+假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`class_id`（班级编号）、`score`（成绩）。请你编写一个 SQL 查询，统计学生表中的班级编号（class_id）和每个班级的平均成绩（avg_score）。

@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs, watch } from "vue";
+import { computed, onMounted, onUnmounted, toRefs, watch } from "vue";
 import mainLevels from "../levels/mainLevels";
 import { getCurrentLevelNum, getNextLevel, getPrevLevel } from "../levels";
 import { useRouter } from "vue-router";
@@ -91,6 +91,30 @@ const toNextLevel = () => {
     router.push(`/learn/${toLevel.key}`);
   }
 };
+
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.metaKey && event.key === "j") {
+    // MacOS: Cmd + J
+    toPrevLevel();
+  } else if (event.ctrlKey && event.key === "j") {
+    // Windows: Ctrl + J
+    toPrevLevel();
+  } else if (event.metaKey && event.key === "k") {
+    // MacOS: Cmd + K
+    toNextLevel();
+  } else if (event.ctrlKey && event.key === "k") {
+    // Windows: Ctrl + K
+    toNextLevel();
+  }
+};
+
+onMounted(() => {
+  document.body.addEventListener("keydown", handleKeyDown);
+});
+
+onUnmounted(() => {
+  document.body.removeEventListener("keydown", handleKeyDown);
+});
 </script>
 
 <style>

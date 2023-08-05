@@ -7,6 +7,20 @@
       </a-button>
       <a-button @click="doFormat">格式化</a-button>
       <a-button @click="doReset">重置</a-button>
+      <a-button shape="circle" @click="showModal">
+        <template #icon><setting-outlined /></template>
+      </a-button>
+      <setting-filled />
+      <a-modal v-model:visible="open" title="编辑器快捷键" @ok="handleOk">
+        <p v-if="os === 'MacOS'">运行快捷键: ⌘ + Enter</p>
+        <p v-else>运行快捷键: Ctrl + Enter</p>
+
+        <p v-if="os === 'MacOS'">格式化快捷键: ⌘ + '</p>
+        <p v-else>格式化快捷键: Ctrl + '</p>
+
+        <p v-if="os === 'MacOS'">重置快捷键: ⌘ + ⇧ + R</p>
+        <p v-else>重置快捷键: Ctrl + ⇧ + r</p>
+      </a-modal>
     </a-space>
   </div>
 </template>
@@ -29,6 +43,7 @@ import { QueryExecResult } from "sql.js";
 // eslint-disable-next-line no-undef
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
 import { message } from "ant-design-vue";
+import { SettingOutlined } from "@ant-design/icons-vue";
 
 (self as any).MonacoEnvironment = {
   getWorker(_: any, label: any) {
@@ -54,6 +69,10 @@ const { level, onSubmit } = toRefs(props);
 const inputEditor = ref<IStandaloneCodeEditor>();
 const editorRef = ref<HTMLElement>();
 const db = ref();
+const open = ref<boolean>(false);
+const os = ref(
+  navigator.userAgent.indexOf("MacOS") >= -1 ? "MacOS" : "Windows"
+);
 
 watchEffect(async () => {
   // 初始化 / 更新默认 SQL
@@ -111,6 +130,17 @@ const doSubmit = () => {
   }
 };
 
+// 快捷键设置按钮
+const showModal = () => {
+  // console.log(os);
+  open.value = true;
+};
+
+const handleOk = (e: MouseEvent) => {
+  // console.log(e);
+  open.value = false;
+};
+
 onMounted(async () => {
   // 初始化代码编辑器
   if (editorRef.value) {
@@ -133,6 +163,33 @@ onMounted(async () => {
     //     localStorage.setItem("draft", toRaw(inputEditor.value).getValue());
     //   }
     // }, 3000);
+    if (os.value === "MacOS") {
+      toRaw(inputEditor.value).addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyCode.Enter,
+        doSubmit
+      );
+      toRaw(inputEditor.value).addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyCode.Quote,
+        doFormat
+      );
+      toRaw(inputEditor.value).addCommand(
+        monaco.KeyMod.CtrlCmd | monaco.KeyMod.Shift | monaco.KeyCode.KeyR,
+        doReset
+      );
+    } else {
+      toRaw(inputEditor.value).addCommand(
+        monaco.KeyMod.WinCtrl | monaco.KeyCode.Enter,
+        doSubmit
+      );
+      toRaw(inputEditor.value).addCommand(
+        monaco.KeyMod.WinCtrl | monaco.KeyCode.Quote,
+        doFormat
+      );
+      toRaw(inputEditor.value).addCommand(
+        monaco.KeyMod.WinCtrl | monaco.KeyMod.Shift | monaco.KeyCode.KeyR,
+        doReset
+      );
+    }
   }
 });
 
@@ -143,6 +200,8 @@ onUnmounted(() => {
   if (inputEditor.value) {
     toRaw(inputEditor.value).dispose();
   }
+  // actions.forEach((action) => toRaw(action).dispose());
+  // actions = [];
 });
 </script>
 

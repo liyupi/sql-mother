@@ -62,7 +62,10 @@ watchEffect(async () => {
   // 初始化 / 更新默认 SQL
   if (inputEditor.value) {
     //尝试去ls中读出暂存的sql代码 ####
-    var rowCode = readCode();
+    var rowCode;
+    if (isSaveCode.value) {
+      rowCode = readCode();
+    }
     if (!rowCode) {
       rowCode = "-- 请在此处输入 SQL\n" + level.value.defaultSQL;
     }

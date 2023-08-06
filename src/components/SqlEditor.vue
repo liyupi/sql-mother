@@ -7,6 +7,7 @@
       </a-button>
       <a-button @click="doFormat">格式化</a-button>
       <a-button @click="doReset">重置</a-button>
+      <a-switch v-model:checked="isSaveCode" @change="saveCodeChange" />暂存代码
     </a-space>
   </div>
 </template>
@@ -29,6 +30,7 @@ import { QueryExecResult } from "sql.js";
 // eslint-disable-next-line no-undef
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
 import { message } from "ant-design-vue";
+import { saveCode, readCode, deleteCode, setIsSaveCode, getIsSaveCode, deleteIsSaveCode } from "../core/saveCode";
 
 (self as any).MonacoEnvironment = {
   getWorker(_: any, label: any) {
@@ -54,13 +56,17 @@ const { level, onSubmit } = toRefs(props);
 const inputEditor = ref<IStandaloneCodeEditor>();
 const editorRef = ref<HTMLElement>();
 const db = ref();
+const isSaveCode = ref(getIsSaveCode());  // 是否暂存代码
 
 watchEffect(async () => {
   // 初始化 / 更新默认 SQL
   if (inputEditor.value) {
-    toRaw(inputEditor.value).setValue(
-      "-- 请在此处输入 SQL\n" + level.value.defaultSQL
-    );
+    //尝试去ls中读出暂存的sql代码 ####
+    var rowCode = readCode();
+    if (!rowCode) {
+      rowCode = "-- 请在此处输入 SQL\n" + level.value.defaultSQL;
+    }
+    toRaw(inputEditor.value).setValue(rowCode);
   }
   // 初始化 / 更新 DB
   db.value = await initDB(level.value.initSQL);
@@ -99,6 +105,10 @@ const doSubmit = () => {
   }
   const inputStr = toRaw(inputEditor.value).getValue();
   console.log("inputStr", inputStr);
+  // 把代码保存到ls ####
+  if (isSaveCode.value) {
+    saveCode(inputStr);
+  }
   try {
     const result = runSQL(db.value, inputStr);
     const answerResult = runSQL(db.value, level.value.answer);
@@ -110,6 +120,14 @@ const doSubmit = () => {
     onSubmit?.value(inputStr, [], [], error.message);
   }
 };
+
+const saveCodeChange = () => {
+  setIsSaveCode(isSaveCode.value);
+  if (!isSaveCode.value){
+    // 清除ls中的代码 ####
+    deleteCode();
+  }
+}
 
 onMounted(async () => {
   // 初始化代码编辑器

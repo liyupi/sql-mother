@@ -26,7 +26,7 @@
 要查询使用多字段分组查询表中 **每个客户** 购买的 **每种商品** 的总金额，相当于按照客户编号和商品编号分组：
 
 ```sql
--- 查询每个班级每次考试的学生人数
+-- 查询每个客户购买的每种商品的总金额
 SELECT customer_id, product_id, SUM(amount) AS total_amount
 FROM orders
 GROUP BY customer_id, product_id;

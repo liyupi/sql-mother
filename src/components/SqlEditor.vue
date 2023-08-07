@@ -15,8 +15,7 @@
 import {CSSProperties, onMounted, onUnmounted, ref, toRaw, toRefs, watchEffect,} from "vue";
 import * as monaco from "monaco-editor";
 import {format} from "sql-formatter";
-import EditorWorker from "monaco-editor/esm/vs/editor/editor.worker?worker";
-import {CompletionItem} from "monaco-editor/esm/vs/editor/editor.worker?worker";
+import EditorWorker, {CompletionItem} from "monaco-editor/esm/vs/editor/editor.worker?worker";
 import {initDB, runSQL} from "../core/sqlExecutor";
 import {QueryExecResult} from "sql.js";
 import {message} from "ant-design-vue";

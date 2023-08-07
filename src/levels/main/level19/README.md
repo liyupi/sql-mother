@@ -39,7 +39,7 @@ HAVING COUNT(order_id) > 1;
 2）使用 HAVING 子句查询订单总金额超过 100 的客户：
 
 ```sql
--- 查询总成绩超过200的班级
+-- 查询订单总金额超过100的客户
 SELECT customer_id, SUM(amount) AS total_amount
 FROM orders
 GROUP BY customer_id

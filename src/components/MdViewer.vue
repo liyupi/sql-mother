@@ -14,7 +14,6 @@ const plugins = [gfm(), highlight()];
 
 interface Props {
   value: string;
-  handleChange: (val: string) => void;
 }
 
 const props = withDefaults(defineProps<Props>(), {

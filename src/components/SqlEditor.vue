@@ -30,13 +30,8 @@ import { QueryExecResult } from "sql.js";
 // eslint-disable-next-line no-undef
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
 import { message } from "ant-design-vue";
-import {
-  saveCode,
-  readCode,
-  deleteCode,
-  setIsSaveCode,
-  getIsSaveCode,
-} from "../core/saveCode";
+import { saveCodeStore } from "../core/saveCodeStore";
+import { storeToRefs } from "pinia";
 
 (self as any).MonacoEnvironment = {
   getWorker(_: any, label: any) {
@@ -62,20 +57,23 @@ const { level, onSubmit } = toRefs(props);
 const inputEditor = ref<IStandaloneCodeEditor>();
 const editorRef = ref<HTMLElement>();
 const db = ref();
-const isSaveCode = ref(getIsSaveCode()); // 是否暂存代码
+const store = saveCodeStore();
+const isSaveCode = ref(storeToRefs(store).isSaveCode); // 是否暂存代码
 
+let isIntnCode = false; //是否已经初始化过代码
 watchEffect(async () => {
   // 初始化 / 更新默认 SQL
-  if (inputEditor.value) {
+  if (inputEditor.value && !isIntnCode) {
     //尝试去ls中读出暂存的sql代码 ####
     var rowCode;
     if (isSaveCode.value) {
-      rowCode = readCode();
+      rowCode = store.saveCode;
     }
     if (!rowCode) {
       rowCode = "-- 请在此处输入 SQL\n" + level.value.defaultSQL;
     }
     toRaw(inputEditor.value).setValue(rowCode);
+    isIntnCode = true;
   }
   // 初始化 / 更新 DB
   db.value = await initDB(level.value.initSQL);
@@ -116,7 +114,7 @@ const doSubmit = () => {
   console.log("inputStr", inputStr);
   // 把代码保存到ls ####
   if (isSaveCode.value) {
-    saveCode(inputStr);
+    store.saveCode = inputStr;
   }
   try {
     const result = runSQL(db.value, inputStr);
@@ -131,10 +129,14 @@ const doSubmit = () => {
 };
 
 const saveCodeChange = () => {
-  setIsSaveCode(isSaveCode.value);
+  store.isSaveCode = isSaveCode.value;
   if (!isSaveCode.value) {
     // 清除ls中的代码 ####
-    deleteCode();
+    store.saveCode = "";
+  } else if (isSaveCode.value && inputEditor.value) {
+    // 开启功能，保存代码
+    const inputStr = toRaw(inputEditor.value).getValue();
+    store.saveCode = inputStr;
   }
 };
 
@@ -153,6 +155,15 @@ onMounted(async () => {
         enabled: false,
       },
     });
+
+    inputEditor.value.onDidChangeModelContent(() => {
+      // 自动保存代码
+      if (inputEditor.value) {
+        const inputStr = toRaw(inputEditor.value).getValue();
+        store.saveCode = inputStr;
+      }
+    });
+
     // 自动保存草稿
     // 暂不开启，刷新后恢复当前关卡的默认 SQL
     // setInterval(() => {

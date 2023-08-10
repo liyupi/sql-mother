@@ -17,5 +17,6 @@ interface LevelType {
   // 答案 SQL
   answer: string;
   // 类型（主线或自定义）
-  type: "main" | "custom";
+  // nolevel 无关卡404页面
+  type: "main" | "custom" | "nolevel";
 }

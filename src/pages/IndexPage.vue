@@ -37,7 +37,7 @@
             />
           </a-collapse-panel>
           <a-collapse-panel key="answer" header="查看答案">
-            {{ level.answer }}
+            <pre v-html="highlightCode(format(level.answer))"></pre>
           </a-collapse-panel>
         </a-collapse>
       </a-col>
@@ -46,6 +46,8 @@
 </template>
 
 <script setup lang="ts">
+import hljs from 'highlight.js';
+import { format } from "sql-formatter";
 import SqlEditor from "../components/SqlEditor.vue";
 import QuestionBoard from "../components/QuestionBoard.vue";
 import SqlResult from "../components/SqlResult.vue";
@@ -99,6 +101,11 @@ const onSubmit = (
   errorMsgRef.value = errorMsg;
   resultStatus.value = checkResult(res, answerRes);
 };
+
+const highlightCode = (code: string) => {
+  return hljs.highlightAuto(code).value;
+};
+
 </script>
 
 <style>

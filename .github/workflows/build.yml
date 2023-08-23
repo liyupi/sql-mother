@@ -1,0 +1,25 @@
+name: Build
+on:
+  pull_request:
+    types: ["opened", "synchronize", "ready_for_review"]
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: [14, 16, 18, 20]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.5.3
+      - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node }}
+          cache: "npm"
+      - name: Install dependencies
+        run: npm run install
+      - name: Build
+        run: npm run build

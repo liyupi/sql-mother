@@ -42,6 +42,11 @@
         </a-collapse>
       </a-col>
     </a-row>
+    <div class="saveCodeSettings">
+      代码保存设置:
+      <a-switch v-model:checked="isSaveCode" @change="saveCodeChange" />暂存代码
+      <a-switch v-model:checked="autoLoadCode" />自动加载代码
+    </div>
   </div>
 </template>
 
@@ -54,6 +59,8 @@ import { QueryExecResult } from "sql.js";
 import { allLevels, getLevelByKey } from "../levels";
 import { checkResult } from "../core/result";
 import CodeEditor from "../components/CodeEditor.vue";
+import { saveCodeStore } from "../core/saveCodeStore";
+import { storeToRefs } from "pinia";
 
 interface IndexPageProps {
   levelKey?: string;
@@ -73,6 +80,9 @@ const errorMsgRef = ref<string>();
 const resultStatus = ref<number>(-1);
 const defaultActiveKeys = ["result"];
 const activeKeys = ref([...defaultActiveKeys]);
+const store = saveCodeStore();
+const isSaveCode = ref(storeToRefs(store).isSaveCode); // 是否暂存代码
+const autoLoadCode = ref(storeToRefs(store).autoLoadCode); // 是否自动加载代码
 
 /**
  * 切换关卡时，重置状态
@@ -99,10 +109,43 @@ const onSubmit = (
   errorMsgRef.value = errorMsg;
   resultStatus.value = checkResult(res, answerRes);
 };
+
+const saveCodeChange = () => {
+  store.isSaveCode = isSaveCode.value;
+  if (!isSaveCode.value) {
+    // 清除ls中的代码 ####
+    store.saveCode = "";
+  } 
+  // else if (isSaveCode.value && inputEditor.value) {
+  //   //this.$refs.sqlEditor
+  //   // 开启功能，保存代码
+  //   const inputStr = toRaw(inputEditor.value).getValue();
+  //   store.saveCode = inputStr;
+  // }
+};
+
+// 开启自动加载代码必须先开启暂存代码
+// 关闭暂存代码必须先关闭自动加载代码
+watch(isSaveCode, (newValue, oldValue) => {
+  if (!newValue) {
+    autoLoadCode.value = false;
+  }
+});
+watch(autoLoadCode, (newValue, oldValue) => {
+  if (newValue) {
+    isSaveCode.value = true;
+  }
+});
 </script>
 
 <style>
 .result-collapse-panel .ant-collapse-content-box {
   padding: 0 !important;
+}
+.saveCodeSettings {
+  margin-top: 8px;
+}
+.saveCodeSettings .ant-switch {
+  margin-left: 8px;
 }
 </style>

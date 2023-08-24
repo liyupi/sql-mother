@@ -6,6 +6,7 @@ export const saveCodeStore = defineStore("saveCode", {
     return {
       saveCode: "",
       isSaveCode: true,
+      autoLoadCode: false,
     };
   },
   persist: {

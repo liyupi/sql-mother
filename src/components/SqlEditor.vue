@@ -7,7 +7,7 @@
       </a-button>
       <a-button @click="doFormat">格式化</a-button>
       <a-button @click="doReset">重置</a-button>
-      <a-switch v-model:checked="isSaveCode" @change="saveCodeChange" />暂存代码
+      <a-button @click="loadSaveCode" v-if="!autoLoadCode">加载暂存代码</a-button>
     </a-space>
   </div>
 </template>
@@ -20,7 +20,7 @@ import {
   ref,
   toRaw,
   toRefs,
-  watchEffect,
+  watch,
 } from "vue";
 import * as monaco from "monaco-editor";
 import { format } from "sql-formatter";
@@ -59,26 +59,30 @@ const editorRef = ref<HTMLElement>();
 const db = ref();
 const store = saveCodeStore();
 const isSaveCode = ref(storeToRefs(store).isSaveCode); // 是否暂存代码
+const autoLoadCode = ref(storeToRefs(store).autoLoadCode); // 是否自动加载代码
+var canSaveCode = true;
 
-let isIntnCode = false; //是否已经初始化过代码
-watchEffect(async () => {
+watch(level, () => {
+  initLevel();
+});
+
+const initLevel = async () => {
   // 初始化 / 更新默认 SQL
-  if (inputEditor.value && !isIntnCode) {
-    //尝试去ls中读出暂存的sql代码 ####
-    var rowCode;
-    if (isSaveCode.value) {
-      rowCode = store.saveCode;
+  if (inputEditor.value) {
+    if (autoLoadCode.value) {
+      loadSaveCode();
+    } else {
+      canSaveCode = false;
+      toRaw(inputEditor.value).setValue(
+        "-- 请在此处输入 SQL\n" + level.value.defaultSQL
+      );
+      canSaveCode = true;
     }
-    if (!rowCode) {
-      rowCode = "-- 请在此处输入 SQL\n" + level.value.defaultSQL;
-    }
-    toRaw(inputEditor.value).setValue(rowCode);
-    isIntnCode = true;
   }
   // 初始化 / 更新 DB
   db.value = await initDB(level.value.initSQL);
-  doSubmit();
-});
+  runSQLCode(); // 初始化结果
+};
 
 /**
  * SQL 格式化
@@ -105,17 +109,29 @@ const doReset = () => {
 
 /**
  * 提交结果
+ * 只有提交结果才可以保存
  */
 const doSubmit = () => {
   if (!inputEditor.value) {
     return;
   }
   const inputStr = toRaw(inputEditor.value).getValue();
-  console.log("inputStr", inputStr);
   // 把代码保存到ls ####
   if (isSaveCode.value) {
     store.saveCode = inputStr;
   }
+  runSQLCode();
+};
+
+/**
+ * 执行sql代码
+ */
+const runSQLCode = () => {
+  if (!inputEditor.value) {
+    return;
+  }
+  const inputStr = toRaw(inputEditor.value).getValue();
+  console.log("inputStr", inputStr);
   try {
     const result = runSQL(db.value, inputStr);
     const answerResult = runSQL(db.value, level.value.answer);
@@ -126,19 +142,25 @@ const doSubmit = () => {
     // 向外层传递结果
     onSubmit?.value(inputStr, [], [], error.message);
   }
-};
+}
 
-const saveCodeChange = () => {
-  store.isSaveCode = isSaveCode.value;
-  if (!isSaveCode.value) {
-    // 清除ls中的代码 ####
-    store.saveCode = "";
-  } else if (isSaveCode.value && inputEditor.value) {
-    // 开启功能，保存代码
-    const inputStr = toRaw(inputEditor.value).getValue();
-    store.saveCode = inputStr;
+const loadSaveCode = () => {
+  if (!inputEditor.value) {
+    return;
   }
-};
+  //尝试去ls中读出暂存的sql代码 ####
+  var rowCode;
+  if (!isSaveCode.value) {
+    message.error("当前功能已关闭,请自行开启");
+    return;
+  }
+  rowCode = store.saveCode;
+  if (!rowCode) {
+    message.error("暂无暂存代码");
+    return;
+  }
+  toRaw(inputEditor.value).setValue(rowCode);
+}
 
 onMounted(async () => {
   // 初始化代码编辑器
@@ -156,10 +178,14 @@ onMounted(async () => {
       },
     });
 
+    // 加载题目
+    initLevel();
+
     inputEditor.value.onDidChangeModelContent(() => {
       // 自动保存代码
-      if (inputEditor.value) {
+      if (isSaveCode.value && canSaveCode && inputEditor.value) {
         const inputStr = toRaw(inputEditor.value).getValue();
+        console.log(inputStr)
         store.saveCode = inputStr;
       }
     });
@@ -171,6 +197,7 @@ onMounted(async () => {
     //     localStorage.setItem("draft", toRaw(inputEditor.value).getValue());
     //   }
     // }, 3000);
+    
   }
 });
 

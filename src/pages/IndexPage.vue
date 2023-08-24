@@ -56,15 +56,26 @@ import { QueryExecResult } from "sql.js";
 import { allLevels, getLevelByKey } from "../levels";
 import { checkResult } from "../core/result";
 import CodeEditor from "../components/CodeEditor.vue";
+import { useRouter } from "vue-router";
 
 interface IndexPageProps {
   levelKey?: string;
 }
 
+const router = useRouter();
+
 const props = defineProps<IndexPageProps>();
 const level = computed(() => {
   if (props.levelKey) {
-    return getLevelByKey(props.levelKey);
+    const level = getLevelByKey(props.levelKey);
+    if (level) {
+      return level;
+    }
+    // 跳转到404页面
+    router.push({
+      path: "/404",
+    });
+    return allLevels[0];  // 防止报错
   }
   return allLevels[0];
 });

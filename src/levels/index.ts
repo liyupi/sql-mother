@@ -1,6 +1,5 @@
 import mainLevels from "./mainLevels";
 import customLevels from "./customLevels";
-import noLevel from "./noLevel";
 
 /**
  * 全部关卡
@@ -15,7 +14,7 @@ export const getLevelByKey = (levelKey: string) => {
   return (
     allLevels.find((level) => {
       return level.key === levelKey;
-    }) || noLevel
+    }) || null
   );
 };
 

@@ -1,9 +1,4 @@
 <template>
-  <div v-if="saveLevelKey" class="saveLevelKey">
-    <a-button type="primary" @click="clearSaveLevelKey()">
-      清空历史记录
-    </a-button>
-  </div>
   <div id="levelsPage">
     <a-row :gutter="[16, 16]">
       <a-col :md="12" :xs="24">
@@ -45,42 +40,33 @@
         </a-card>
       </a-col>
     </a-row>
+    <div v-if="saveLevelKey" class="saveLevelKey">
+      <a-button type="primary" @click="clearSaveLevelKey()">
+        清空历史记录
+      </a-button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import mainLevels from "../levels/mainLevels";
 import customLevels from "../levels/customLevels";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import { message } from "ant-design-vue";
-import { readLevel, deleteLevel } from "../core/saveLevel";
+import { saveLevelStore } from "../core/saveLevelStore";
+import { storeToRefs } from "pinia";
 
-const saveLevelKey = ref();
-
-// 打开页面时加载保存的levelKey
-onMounted(() => {
-  loadSaveLevelKey();
-});
-
-// 加载缓存关卡
-const loadSaveLevelKey = () => {
-  const saveLevelKeyStorage = readLevel();
-  if (!saveLevelKeyStorage) {
-    saveLevelKey.value = "";
-    return;
-  }
-  saveLevelKey.value = saveLevelKeyStorage;
-};
+const levelStore = saveLevelStore();
+const saveLevelKey = ref(storeToRefs(levelStore).level);
 
 const clearSaveLevelKey = () => {
-  deleteLevel();
-  loadSaveLevelKey();
+  saveLevelKey.value = "";
   message.info(`清除成功！`);
 };
 </script>
 
 <style scoped>
 .saveLevelKey {
-  margin-bottom: 6px;
+  margin-top: 8px;
 }
 </style>

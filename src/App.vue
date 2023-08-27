@@ -40,9 +40,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import {
-  GithubOutlined,
-} from '@ant-design/icons-vue';
+import { GithubOutlined } from "@ant-design/icons-vue";
 
 const route = useRoute();
 const router = useRouter();

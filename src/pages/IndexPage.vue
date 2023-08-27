@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import hljs from 'highlight.js';
+import hljs from "highlight.js";
 import { format } from "sql-formatter";
 import SqlEditor from "../components/SqlEditor.vue";
 import QuestionBoard from "../components/QuestionBoard.vue";
@@ -99,13 +99,14 @@ const onSubmit = (
   result.value = res;
   answerResult.value = answerRes;
   errorMsgRef.value = errorMsg;
+  // 点击运行后自动展开结果
+  activeKeys.value = [...defaultActiveKeys];
   resultStatus.value = checkResult(res, answerRes);
 };
 
 const highlightCode = (code: string) => {
   return hljs.highlightAuto(code).value;
 };
-
 </script>
 
 <style>

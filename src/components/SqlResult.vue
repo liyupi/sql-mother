@@ -19,8 +19,8 @@ import { RESULT_STATUS_INFO_MAP } from "../core/result";
 
 interface Props {
   result: QueryExecResult[];
-  answerResult: QueryExecResult[];
-  resultStatus: number;
+  answerResult?: QueryExecResult[];
+  resultStatus?: number;
   errorMsg?: string;
   // eslint-disable-next-line vue/require-default-prop
   level?: LevelType;
@@ -29,6 +29,7 @@ interface Props {
 const props = withDefaults(defineProps<Props>(), {
   result: () => [],
   answerResult: () => [],
+  resultStatus: () => 1,
   errorMsg: () => "",
 });
 

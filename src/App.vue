@@ -21,7 +21,8 @@
           <a-menu-item key="/playground">广场</a-menu-item>
           <a-menu-item>
             <a href="https://github.com/liyupi/sql-mother" target="_blank">
-              <github-outlined /> 代码开源
+              <github-outlined />
+              代码开源
             </a>
           </a-menu-item>
         </a-menu>
@@ -38,15 +39,23 @@
   </div>
 </template>
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, onMounted, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import {
-  GithubOutlined,
-} from '@ant-design/icons-vue';
+import { GithubOutlined } from "@ant-design/icons-vue";
+import MainLevels from "./levels/mainLevels";
+import routes from "./configs/routes";
+import customLevels from "./levels/customLevels";
 
 const route = useRoute();
 const router = useRouter();
 const selectedKeys = computed(() => [route.path]);
+
+/**
+ * 第一次进入加载所有路由
+ */
+onMounted(() => {
+  allRoutesPath();
+});
 
 /**
  * 点击菜单跳转
@@ -59,6 +68,30 @@ const doClickMenu = ({ key }: any) => {
     });
   }
 };
+
+const levelRoutePath = ref<String[]>([]);
+
+/**
+ * 获取包含关卡的所有路由
+ */
+const allRoutesPath = () => {
+  const mainLevels = MainLevels.map(({ key }) => `/learn/${key}`);
+  const customLevelsList = customLevels.map(({ key }) => `/learn/${key}`);
+  const allRoutesPath = routes
+    .map(({ path }) => path)
+    .filter((routePath) => routePath !== "/learn/:levelKey?")
+    .concat(mainLevels, customLevelsList);
+  allRoutesPath.push("/learn");
+  levelRoutePath.value = allRoutesPath;
+};
+
+router.beforeEach((to, from, next) => {
+  if (levelRoutePath.value.includes(to.fullPath)) {
+    next();
+  } else {
+    next("/learn");
+  }
+});
 </script>
 <style scoped>
 .header {

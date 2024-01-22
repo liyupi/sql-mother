@@ -19,8 +19,7 @@ export const initDB = async (initSql?: string) => {
   if (!SQL) {
     SQL = await initSqlJs({
       // Required to load the wasm binary asynchronously
-      locateFile: () =>
-        "https://cdn.bootcdn.net/ajax/libs/sql.js/1.7.0/sql-wasm.wasm",
+      locateFile: () => "./sql-wasm.wasm",
     });
   }
   // Create a database

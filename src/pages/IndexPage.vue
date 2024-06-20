@@ -52,9 +52,10 @@ import SqlResult from "../components/SqlResult.vue";
 import { computed, ref, watch } from "vue";
 import { QueryExecResult } from "sql.js";
 import { allLevels, getLevelByKey } from "../levels";
-import { checkResult } from "../core/result";
+import { EXECUTE_TIPS_CONFIG, checkResult } from "../core/result";
 import CodeEditor from "../components/CodeEditor.vue";
-
+import { message } from "ant-design-vue";
+import { OperateType } from "../core/result";
 interface IndexPageProps {
   levelKey?: string;
 }
@@ -92,12 +93,19 @@ const onSubmit = (
   sql: string,
   res: QueryExecResult[],
   answerRes: QueryExecResult[],
-  errorMsg?: string
+  errorMsg?: string,
+  operateType?: OperateType
 ) => {
   result.value = res;
   answerResult.value = answerRes;
   errorMsgRef.value = errorMsg;
   resultStatus.value = checkResult(res, answerRes);
+  // 当提交之后，默认展示结果
+  activeKeys.value = ["result"];
+  if (operateType === OperateType.DEFAULT) return;
+  const tipsConfig = EXECUTE_TIPS_CONFIG[resultStatus.value];
+  if (!tipsConfig) return;
+  message.open(tipsConfig);
 };
 </script>
 
@@ -106,3 +114,4 @@ const onSubmit = (
   padding: 0 !important;
 }
 </style>
+../types

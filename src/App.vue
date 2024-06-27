@@ -20,8 +20,22 @@
           <a-menu-item key="/levels">关卡</a-menu-item>
           <a-menu-item key="/playground">广场</a-menu-item>
           <a-menu-item>
+            <a href="https://www.code-nav.cn" target="_blank">
+              <a-badge
+                count="new"
+                size="small"
+                :offset="[16, 24]"
+                color="green"
+              >
+                <book-outlined />
+                编程导航
+              </a-badge>
+            </a>
+          </a-menu-item>
+          <a-menu-item>
             <a href="https://github.com/liyupi/sql-mother" target="_blank">
-              <github-outlined /> 代码开源
+              <github-outlined />
+              代码开源
             </a>
           </a-menu-item>
         </a-menu>
@@ -31,8 +45,17 @@
       <router-view />
     </div>
     <div class="footer">
-      SQL之母 - SQL 自学网站 ©2023 by
-      <a href="https://github.com/liyupi" target="_blank">程序员鱼皮</a>
+      <p>
+        <a-space size="middle">
+          <a href="https://www.code-nav.cn" target="_blank">编程导航</a>
+          <a href="https://www.laoyujianli.com" target="_blank">写简历神器</a>
+          <a href="https://www.mianshiya.com" target="_blank">面试刷题</a>
+        </a-space>
+      </p>
+      <p>
+        SQL之母 - SQL 自学网站 ©2023 by
+        <a href="https://github.com/liyupi" target="_blank">程序员鱼皮</a>
+      </p>
     </div>
     <a-back-top :style="{ right: '24px' }" />
   </div>
@@ -40,9 +63,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import {
-  GithubOutlined,
-} from '@ant-design/icons-vue';
+import { GithubOutlined, BookOutlined } from "@ant-design/icons-vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -88,5 +109,9 @@ const doClickMenu = ({ key }: any) => {
   padding: 12px;
   text-align: center;
   background: #efefef;
+
+  p {
+    margin-bottom: 4px;
+  }
 }
 </style>

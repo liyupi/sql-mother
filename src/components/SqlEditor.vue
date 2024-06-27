@@ -28,6 +28,7 @@ import { initDB, runSQL } from "../core/sqlExecutor";
 import { QueryExecResult } from "sql.js";
 // eslint-disable-next-line no-undef
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
+import { language as sqlLanguage } from "monaco-editor/esm/vs/basic-languages/sql/sql.js";
 import { message } from "ant-design-vue";
 
 (self as any).MonacoEnvironment = {
@@ -124,6 +125,29 @@ onMounted(async () => {
       fontSize: 16,
       minimap: {
         enabled: false,
+      },
+    });
+
+    monaco.languages.registerCompletionItemProvider("sql", {
+      provideCompletionItems: function (model, position) {
+        const suggestions: monaco.languages.CompletionItem[] = [];
+        sqlLanguage.keywords.forEach((item: string) => {
+          const lowercaseItem = item.toLowerCase();
+          suggestions.push({
+            label: lowercaseItem,
+            kind: monaco.languages.CompletionItemKind.Keyword,
+            insertText: lowercaseItem,
+            range: new monaco.Range(
+              position.lineNumber,
+              position.column - item.length,
+              position.lineNumber,
+              position.column
+            ),
+          });
+        });
+        return {
+          suggestions: suggestions,
+        };
       },
     });
     // 自动保存草稿

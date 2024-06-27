@@ -47,5 +47,5 @@ GROUP BY customer_id, product_id;
 
 ## 题目
 
-假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`class_id`（班级编号）、`exam_num`（考试次数）、`score`（成绩）。请你编写一个 SQL 查询，统计学生表中的班级编号（class_id），考试次数（exam_num）和每个班级每次考试的总学生人数（total_num）。
+假设有一个学生表 `student`，包含以下字段：`id`（学号）、`name`（姓名）、`class_id`（班级编号）、`exam_num`（考试场次）、`score`（成绩）。请你编写一个 SQL 查询，统计学生表中的班级编号（class_id），考试场次（exam_num）和每个班级每场考试的总学生人数（total_num）。
 

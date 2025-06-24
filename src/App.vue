@@ -27,15 +27,26 @@
                 :offset="[16, 24]"
                 color="green"
               >
-                <book-outlined />
                 编程导航
               </a-badge>
             </a>
           </a-menu-item>
           <a-menu-item>
+            <a href="https://www.mianshiya.com" target="_blank">
+              <solution-outlined />
+              面试真题
+            </a>
+          </a-menu-item>
+          <a-menu-item key="about">
+            <span @click.stop="showAboutModal" style="cursor: pointer; display: inline-block; width: 100%;">
+              <user-outlined />
+              关于作者
+            </span>
+          </a-menu-item>
+          <a-menu-item>
             <a href="https://github.com/liyupi/sql-mother" target="_blank">
               <github-outlined />
-              代码开源
+              代码开源，欢迎 star
             </a>
           </a-menu-item>
         </a-menu>
@@ -58,12 +69,22 @@
       </p>
     </div>
     <a-back-top :style="{ right: '24px' }" />
+    
+    <!-- 关于作者弹窗组件 -->
+    <AboutAuthorModal v-model:visible="aboutModalVisible" />
   </div>
 </template>
+
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { GithubOutlined, BookOutlined } from "@ant-design/icons-vue";
+import { 
+  GithubOutlined, 
+  BookOutlined, 
+  SolutionOutlined, 
+  UserOutlined 
+} from "@ant-design/icons-vue";
+import AboutAuthorModal from "./components/AboutAuthorModal.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -72,18 +93,21 @@ const selectedKeys = computed(() => [route.path]);
 // 获取当前年份
 const currentYear = computed(() => new Date().getFullYear());
 
-/**
- * 点击菜单跳转
- * @param key
- */
+const aboutModalVisible = ref(false);
+
+const showAboutModal = () => {
+  aboutModalVisible.value = true;
+};
+
 const doClickMenu = ({ key }: any) => {
-  if (key) {
+  if (key && key !== "about") {
     router.push({
       path: key,
     });
   }
 };
 </script>
+
 <style scoped>
 .header {
   border-bottom: 1px solid #f0f0f0;

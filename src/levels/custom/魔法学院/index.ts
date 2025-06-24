@@ -19,4 +19,5 @@ export default {
     "    magic_scores;",
   hint: "开窗函数",
   type: "custom",
+  difficulty: 1,
 } as LevelType;

@@ -32,4 +32,5 @@ export default {
     "    total_fee DESC;",
   hint: "使用GROUP BY分组，子查询找出热门时段，CASE WHEN计算男女比例",
   type: "custom",
+  difficulty: 2,
 } as LevelType; 

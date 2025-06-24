@@ -26,4 +26,5 @@ export default {
     "    ROUND(SUM(orders_completed) * 100.0 / (SUM(orders_completed) + SUM(orders_failed)), 1) DESC, total_completed DESC;",
   hint: "使用SUM计算总和，注意成功率计算公式和效率计算，HAVING过滤总订单数",
   type: "custom",
+  difficulty: 2,
 } as LevelType; 

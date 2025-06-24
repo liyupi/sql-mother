@@ -18,4 +18,5 @@ export default {
     "    observation_location LIKE '%大浪淘鸡%' and wave_intensity > 5;",
   hint: "like 模糊查询",
   type: "custom",
+  difficulty: 1,
 } as LevelType;

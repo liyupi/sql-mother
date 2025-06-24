@@ -23,4 +23,5 @@ export default {
     "    platform ASC, avg_engagement_rate DESC;",
   hint: "使用WHERE过滤浏览量，GROUP BY分组，ROUND保留小数，注意计算互动率的公式",
   type: "custom",
+  difficulty: 2,
 } as LevelType; 

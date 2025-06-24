@@ -22,4 +22,5 @@ export default {
     "    total_revenue DESC;",
   hint: "使用GROUP BY按电影类型分组，SUM计算总票房，AVG计算平均值",
   type: "custom",
+  difficulty: 1,
 } as LevelType; 

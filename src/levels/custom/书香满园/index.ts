@@ -30,4 +30,5 @@ export default {
     "    total_revenue DESC;",
   hint: "使用GROUP BY分组，子查询找出每个分类中销售额最高的图书",
   type: "custom",
+  difficulty: 2,
 } as LevelType; 

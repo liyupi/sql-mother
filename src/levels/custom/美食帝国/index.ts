@@ -22,4 +22,5 @@ export default {
     "    total_sales DESC;",
   hint: "使用GROUP BY按菜品分类分组，计算销售额、订单数、平均单价和会员占比",
   type: "custom",
+  difficulty: 1,
 } as LevelType; 

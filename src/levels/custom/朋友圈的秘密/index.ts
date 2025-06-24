@@ -26,4 +26,5 @@ export default {
     "    total_interactions DESC;",
   hint: "使用SUM计算总互动数，AVG计算平均值，注意占比计算和数据类型转换",
   type: "custom",
+  difficulty: 2,
 } as LevelType; 

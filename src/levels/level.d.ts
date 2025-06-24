@@ -18,4 +18,6 @@ interface LevelType {
   answer: string;
   // 类型（主线或自定义）
   type: "main" | "custom";
+  // 难度等级（1-简单，2-中等，3-困难）
+  difficulty?: 1 | 2 | 3;
 }

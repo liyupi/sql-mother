@@ -23,4 +23,5 @@ export default {
     "    ROUND(SUM(CASE WHEN game_result = '胜利' THEN 1 ELSE 0 END) * 100.0 / COUNT(*), 1) DESC;",
   hint: "使用CASE WHEN统计胜利场次，HAVING过滤对局数，注意处理死亡数为0的情况",
   type: "custom",
+  difficulty: 3,
 } as LevelType; 

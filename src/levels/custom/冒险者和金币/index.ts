@@ -22,4 +22,5 @@ export default {
     "LIMIT 3;",
   hint: "分组聚合",
   type: "custom",
+  difficulty: 1,
 } as LevelType;

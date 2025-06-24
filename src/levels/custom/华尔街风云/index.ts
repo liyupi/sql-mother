@@ -36,4 +36,5 @@ export default {
     "    amount_rank ASC;",
   hint: "使用子查询结合窗口函数，注意HAVING子句的使用位置和窗口函数的计算顺序",
   type: "custom",
+  difficulty: 3,
 } as LevelType; 

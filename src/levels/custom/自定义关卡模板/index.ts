@@ -25,4 +25,5 @@ export default {
   hint: "开窗函数",
   // 关卡类别
   type: "custom",
+  difficulty: 1,
 } as LevelType;

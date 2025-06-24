@@ -33,11 +33,11 @@ customers 表：
 
 
 
-现在，我们希望查询出订单总金额 > 200 的客户的姓名和他们的订单总金额，示例 SQL 如下：
+现在，我们希望查询出有订单总金额 > 200 的客户的姓名和城市信息，示例 SQL 如下：
 
 ```sql
 -- 主查询
-SELECT name, total_amount
+SELECT name, city
 FROM customers
 WHERE customer_id IN (
     -- 子查询
@@ -53,10 +53,10 @@ WHERE customer_id IN (
 
 上述语句的查询结果：
 
-| name    | total_amount |
-| ------- | ------------ |
-| Bob     | 350          |
-| Charlie | 500          |
+| name    | city        |
+| ------- | ----------- |
+| Bob     | Los Angeles |
+| Charlie | Chicago     |
 
 
 

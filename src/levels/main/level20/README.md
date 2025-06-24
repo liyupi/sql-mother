@@ -34,12 +34,19 @@
 使用 CROSS JOIN 进行关联查询，将员工表和部门表的所有行组合在一起，获取员工姓名、工资、部门名称和部门经理，示例 SQL 代码如下：
 
 ```sql
-SELECT e.emp_name, e.salary, e.department, d.manager
+SELECT e.emp_name, e.salary, d.department, d.manager
 FROM employees e
 CROSS JOIN departments d;
 ```
 
+上面的 SQL 还可以简化为：
 
+```sql
+SELECT e.emp_name, e.salary, d.department, d.manager
+FROM employees e, departments d;
+```
+
+通过逗号分隔表名，隐式地实现了笛卡尔积，是 SQL 早期的写法，功能上与 CROSS JOIN 完全相同。
 
 注意，在多表关联查询的 SQL 中，我们最好在选择字段时指定字段所属表的名称（比如 e.emp_name），还可以通过给表起别名（比如 employees e）来简化 SQL 语句。
 

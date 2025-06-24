@@ -53,7 +53,7 @@
         </a-space>
       </p>
       <p>
-        SQL之母 - SQL 自学网站 ©2023 by
+        SQL之母 - SQL 自学网站 ©{{ currentYear }} by
         <a href="https://github.com/liyupi" target="_blank">程序员鱼皮</a>
       </p>
     </div>
@@ -68,6 +68,9 @@ import { GithubOutlined, BookOutlined } from "@ant-design/icons-vue";
 const route = useRoute();
 const router = useRouter();
 const selectedKeys = computed(() => [route.path]);
+
+// 获取当前年份
+const currentYear = computed(() => new Date().getFullYear());
 
 /**
  * 点击菜单跳转

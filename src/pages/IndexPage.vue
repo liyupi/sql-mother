@@ -37,7 +37,11 @@
             />
           </a-collapse-panel>
           <a-collapse-panel key="answer" header="查看答案">
-            <pre v-html="highlightCode(format(level.answer))"></pre>
+            <code-editor
+              :init-value="level.answer"
+              :editor-style="{ minHeight: '400px' }"
+              read-only
+            />
           </a-collapse-panel>
         </a-collapse>
       </a-col>

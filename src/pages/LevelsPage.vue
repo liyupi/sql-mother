@@ -58,7 +58,6 @@
               class="level-card custom-level"
               @click="goToLevel(level.key)"
             >
-              <div class="level-icon">{{ getLevelIcon(level.title) }}</div>
               <div class="level-content">
                 <h3 class="level-title">{{ level.title }}</h3>
                 <div class="level-meta">
@@ -88,28 +87,6 @@ const goToLevel = (levelKey: string) => {
   router.push(`/learn/${levelKey}`);
 };
 
-const getLevelIcon = (title: string) => {
-  const iconMap: Record<string, string> = {
-    '码上淘宝': '🛒',
-    '知识星球': '📚',
-    '王者农药大数据': '🎮',
-    '金牛投资': '💰',
-    '朋友圈的秘密': '📱',
-    '快递江湖': '📦',
-    '光影票房王': '🎬',
-    '美食帝国': '🍕',
-    '书香满园': '📖',
-    '白衣天使': '🏥',
-    '极速达人': '🚀',
-    '华尔街风云': '📈',
-    '数据淘金客': '💎',
-    '冒险者和金币': '⚔️',
-    '魔法学院': '🔮',
-    '大浪淘鸡': '🐔',
-    '鱼皮的数据江湖': '🐟',
-  };
-  return iconMap[title] || '⭐';
-};
 
 const getDifficultyText = (difficulty?: number) => {
   switch (difficulty) {

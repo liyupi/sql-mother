@@ -325,10 +325,13 @@ export const runSQL = (db: Database, sql: string) => {
 5. 给项目增加一个后端，用数据库来存放关卡数据，并且支持在线提交 / 审核关卡
 6. 增加过关排行榜
 
-
-
----
-
-
-
 感谢阅读，也欢迎加入 [作者的编程学习圈](https://yupi.icu)，学习更多原创项目~
+
+## 感谢赞助
+
+本项目 CDN 加速及安全防护由 Tencent EdgeOne 赞助
+
+[亚洲最佳CDN、边缘和安全解决方案 - Tencent EdgeOne](https://edgeone.ai/zh?from=github)
+
+![image](https://github.com/user-attachments/assets/eeb52237-4520-4a97-8f3d-6cb901e2106a)
+

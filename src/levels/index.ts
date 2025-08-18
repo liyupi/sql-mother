@@ -14,7 +14,7 @@ export const getLevelByKey = (levelKey: string) => {
   return (
     allLevels.find((level) => {
       return level.key === levelKey;
-    }) || allLevels[0]
+    }) || null
   );
 };
 

@@ -22,7 +22,7 @@ values ('李阿巴', 19, 3, 120, 2);
 insert into `student` (`name`, `age`, `class_id`, `score`, `exam_num`)
 values ('老李', 56, 3, 500, 4);
 insert into `student` (`name`, `age`, `class_id`, `score`, `exam_num`)
-values ('李变量', 24, 4, 390, 3);
+values ('李变量', 24, 4, 600, 3);
 insert into `student` (`name`, `age`, `class_id`, `score`, `exam_num`)
 values ('王加瓦', 23, 4, 0, 4);
 insert into `student` (`name`, `age`, `class_id`, `score`, `exam_num`)

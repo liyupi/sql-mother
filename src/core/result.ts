@@ -1,3 +1,4 @@
+import { MessageArgsProps } from "ant-design-vue";
 import { QueryExecResult } from "sql.js";
 
 /**
@@ -16,6 +17,20 @@ export const RESULT_STATUS_INFO_MAP = {
   "-1": "未执行",
   0: "❌ 错误",
   1: "✅ 正确",
+};
+
+/** 提交操作类型枚举 */
+export enum OperateType {
+  DEFAULT = "default",
+  SUBMIT = "submit",
+}
+/** 执行提示映射 */
+export const EXECUTE_TIPS_CONFIG: Record<string, MessageArgsProps> = {
+  /** 执行成功 */
+  1: {
+    type: "success",
+    content: "恭喜你，挑战成功，可挑战下一关",
+  },
 };
 
 /**

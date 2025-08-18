@@ -2,7 +2,15 @@
   <div id="sqlEditor">
     <div ref="editorRef" :style="editorStyle" />
     <a-space :size="16" style="margin-top: 16px">
-      <a-button type="primary" style="width: 180px" @click="doSubmit">
+      <a-button
+        type="primary"
+        style="width: 180px"
+        @click="
+          () => {
+            doSubmit(OperateType.SUBMIT);
+          }
+        "
+      >
         运行
       </a-button>
       <a-button @click="doFormat">格式化</a-button>
@@ -29,6 +37,7 @@ import { QueryExecResult } from "sql.js";
 // eslint-disable-next-line no-undef
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
 import { message } from "ant-design-vue";
+import { OperateType } from "../core/result";
 
 (self as any).MonacoEnvironment = {
   getWorker(_: any, label: any) {
@@ -45,7 +54,8 @@ interface SqlEditorProps {
     sql: string,
     result: QueryExecResult[],
     answerResult: QueryExecResult[],
-    errorMsg?: string
+    errorMsg?: string,
+    operateType?: OperateType
   ) => void;
 }
 
@@ -64,7 +74,7 @@ watchEffect(async () => {
   }
   // 初始化 / 更新 DB
   db.value = await initDB(level.value.initSQL);
-  doSubmit();
+  doSubmit(OperateType.DEFAULT);
 });
 
 /**
@@ -86,14 +96,15 @@ const doFormat = () => {
 const doReset = () => {
   if (inputEditor.value) {
     toRaw(inputEditor.value).setValue(level.value.defaultSQL);
-    doSubmit();
+    doSubmit(OperateType.DEFAULT);
   }
 };
 
 /**
  * 提交结果
+ * @param  operateType 点击提交或者默认执行
  */
-const doSubmit = () => {
+const doSubmit = (operateType: OperateType) => {
   if (!inputEditor.value) {
     return;
   }
@@ -103,11 +114,11 @@ const doSubmit = () => {
     const result = runSQL(db.value, inputStr);
     const answerResult = runSQL(db.value, level.value.answer);
     // 向外层传递结果
-    onSubmit?.value(inputStr, result, answerResult);
+    onSubmit?.value(inputStr, result, answerResult, undefined, operateType);
   } catch (error: any) {
     message.error("语句错误，" + error.message);
     // 向外层传递结果
-    onSubmit?.value(inputStr, [], [], error.message);
+    onSubmit?.value(inputStr, [], [], error.message, operateType);
   }
 };
 

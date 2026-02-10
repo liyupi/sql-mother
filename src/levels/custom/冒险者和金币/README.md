@@ -4,9 +4,9 @@
 
 表格字段如下：
 
-- `adventurer_id`：冒险者ID，唯一标识每个冒险者。
+- `adventurer_id`：冒险者 ID，唯一标识每个冒险者。
 - `adventurer_name`：冒险者姓名。
-- `task_id`：任务ID，唯一标识每个任务。
+- `task_id`：任务 ID，唯一标识每个任务。
 - `task_name`：任务名称。
 - `reward_coins`：冒险者在该任务中获得的金币奖励数量。
 

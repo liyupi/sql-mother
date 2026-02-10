@@ -1,7 +1,8 @@
 import { RouteRecordRaw } from "vue-router";
-import IndexPage from "../pages/IndexPage.vue";
-import LevelsPage from "../pages/LevelsPage.vue";
-import PlaygroundPage from "../pages/PlaygroundPage.vue";
+
+const IndexPage = () => import("../pages/IndexPage.vue");
+const LevelsPage = () => import("../pages/LevelsPage.vue");
+const PlaygroundPage = () => import("../pages/PlaygroundPage.vue");
 
 /**
  * 路由列表

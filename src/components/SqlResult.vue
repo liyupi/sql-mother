@@ -1,13 +1,13 @@
 <template>
   <a-card
     id="sqlResult"
+    class="sql-result-card"
     title="执行结果"
-    :extra="RESULT_STATUS_INFO_MAP[resultStatus]"
+    :extra="RESULT_STATUS_INFO_MAP[resultStatus as unknown as keyof typeof RESULT_STATUS_INFO_MAP]"
     :bordered="false"
-    style="max-height: 420px; overflow-y: auto"
   >
     <sql-result-table v-if="!errorMsg" :result="result" />
-    <div v-else>❌ 语句错误：{{ errorMsg }}</div>
+    <div v-else>❌ 语句错误:{{ errorMsg }}</div>
   </a-card>
 </template>
 
@@ -36,4 +36,35 @@ const props = withDefaults(defineProps<Props>(), {
 const { result } = toRefs(props);
 </script>
 
-<style></style>
+<style scoped>
+.sql-result-card {
+  max-height: 420px;
+  overflow-y: auto;
+}
+
+.sql-result-card::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sql-result-card::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+.sql-result-card::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+
+.sql-result-card::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme="dark"] .sql-result-card::-webkit-scrollbar-thumb) {
+  background: rgba(148, 163, 184, 0.35);
+}
+
+:global([data-theme="dark"] .sql-result-card::-webkit-scrollbar-thumb:hover) {
+  background: rgba(148, 163, 184, 0.5);
+}
+</style>

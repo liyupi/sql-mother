@@ -43,4 +43,4 @@ export default {
   hint: "使用JULIANDAY计算时间差，结合窗口函数和子查询，注意排序时需要处理百分号字符串",
   type: "custom",
   difficulty: 2,
-} as LevelType; 
+} as LevelType;

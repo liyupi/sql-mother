@@ -32,12 +32,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, toRefs, watch } from "vue";
+import { computed, defineAsyncComponent, toRefs, watch } from "vue";
 import mainLevels from "../levels/mainLevels";
 import { getCurrentLevelNum, getNextLevel, getPrevLevel } from "../levels";
 import { useRouter } from "vue-router";
 import { RESULT_STATUS_ENUM } from "../core/result";
-import MdViewer from "./MdViewer.vue";
+const MdViewer = defineAsyncComponent(() => import("./MdViewer.vue"));
 
 interface Props {
   level: LevelType;
@@ -68,8 +68,7 @@ watch([levelNum], () => {
  * 通关
  */
 const doWin = () => {
-  alert("恭喜通关，有收获的话，欢迎给本项目一个 star 哦~");
-  window.open("https://github.com/liyupi/sql-mother");
+  alert("恭喜通关！");
 };
 
 /**
@@ -98,5 +97,35 @@ const toNextLevel = () => {
   max-height: calc(100vh - 100px);
   min-height: 600px;
   overflow-y: auto;
+}
+
+#questionBoard #questionCard::-webkit-scrollbar {
+  width: 6px;
+}
+
+#questionBoard #questionCard::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 8px 0;
+}
+
+#questionBoard #questionCard::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.12);
+  border-radius: 3px;
+}
+
+#questionBoard #questionCard::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+:global([data-theme="dark"]
+    #questionBoard
+    #questionCard::-webkit-scrollbar-thumb) {
+  background: rgba(148, 163, 184, 0.35);
+}
+
+:global([data-theme="dark"]
+    #questionBoard
+    #questionCard::-webkit-scrollbar-thumb:hover) {
+  background: rgba(148, 163, 184, 0.5);
 }
 </style>

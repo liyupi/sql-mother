@@ -24,4 +24,4 @@ export default {
   hint: "使用CASE WHEN统计胜利场次，HAVING过滤对局数，注意处理死亡数为0的情况",
   type: "custom",
   difficulty: 3,
-} as LevelType; 
+} as LevelType;

@@ -18,8 +18,8 @@ import ecommerceUserBehaviorAnalysis from "./custom/数据淘金客";
  * 自定义关卡列表
  */
 const customLevels: LevelType[] = [
-  adventurer, 
-  magicScores, 
+  adventurer,
+  magicScores,
   waveChicken,
   ecommerceAnalysis,
   gameDataAnalysis,
@@ -32,7 +32,7 @@ const customLevels: LevelType[] = [
   hospitalAppointmentAnalysis,
   deliveryPerformanceAnalysis,
   stockTradingAnalysis,
-  ecommerceUserBehaviorAnalysis
+  ecommerceUserBehaviorAnalysis,
 ];
 
 export default customLevels;

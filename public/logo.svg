@@ -1,0 +1,22 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad-tech" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2f54eb"/>
+      <stop offset="100%" stop-color="#597ef7"/>
+    </linearGradient>
+    <linearGradient id="grad-dark" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1f1f1f"/>
+      <stop offset="100%" stop-color="#434343"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Database Cylinder -->
+  <path d="M140 380 C140 405, 372 405, 372 380 V320 C372 295, 140 295, 140 320 Z" fill="url(#grad-tech)" />
+  <path d="M140 290 C140 315, 372 315, 372 290 V230 C372 205, 140 205, 140 230 Z" fill="url(#grad-tech)" opacity="0.8"/>
+  <ellipse cx="256" cy="230" rx="116" ry="25" fill="url(#grad-tech)" opacity="0.6"/>
+
+  <!-- Code / Terminal Bracket Overlay -->
+  <path d="M360 120 L440 200 L360 280" stroke="#faad14" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M152 120 L72 200 L152 280" stroke="#faad14" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="210" y1="440" x2="302" y2="100" stroke="#faad14" stroke-width="24" stroke-linecap="round"/>
+</svg>

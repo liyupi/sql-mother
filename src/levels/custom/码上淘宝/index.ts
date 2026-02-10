@@ -21,4 +21,4 @@ export default {
   hint: "使用GROUP BY按分类分组，SUM函数计算总和，ORDER BY排序",
   type: "custom",
   difficulty: 2,
-} as LevelType; 
+} as LevelType;

@@ -1,3 +1,269 @@
+:root {
+  --bg-color: #f7f7f7;
+  --text-color: #111827;
+  --muted-text: #6b7280;
+  --text-secondary: #6b7280;
+  --card-bg: #ffffff;
+  --component-bg: #ffffff;
+  --bg-secondary: #eef2f7;
+  --border-color: #e5e7eb;
+  --header-bg: #ffffff;
+  --footer-bg: #efefef;
+  --link-color: #1677ff;
+  --primary-color: #1677ff;
+  --input-bg: #ffffff;
+  --code-bg: #f1f5f9;
+  --markdown-border: #e5e7eb;
+  --table-row-hover-bg: #fafafa;
+}
+
+[data-theme="dark"] {
+  --bg-color: #0f172a;
+  --text-color: #e5e7eb;
+  --muted-text: #9ca3af;
+  --text-secondary: #9ca3af;
+  --card-bg: #1f2937;
+  --component-bg: #1f2937;
+  --bg-secondary: #111827;
+  --border-color: #374151;
+  --header-bg: #0b1220;
+  --footer-bg: #0b1220;
+  --link-color: #60a5fa;
+  --primary-color: #60a5fa;
+  --input-bg: #111827;
+  --code-bg: #0b1220;
+  --markdown-border: #334155;
+  --table-row-hover-bg: #374151;
+}
+
 body {
-    height: auto;
+  height: auto;
+  background: var(--bg-color);
+  color: var(--text-color);
+}
+
+a {
+  color: var(--link-color);
+}
+
+.ant-menu {
+  background: transparent;
+  color: var(--text-color);
+}
+
+.ant-menu-item a {
+  color: inherit;
+}
+
+.ant-table,
+.ant-table-container,
+.ant-table-content {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+.ant-table-thead > tr > th {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.ant-table-tbody > tr > td {
+  background: var(--card-bg) !important;
+  color: var(--text-color);
+  border-color: var(--border-color);
+  transition: none !important;
+}
+
+.ant-table-tbody > tr:hover > td,
+.ant-table-tbody > tr.ant-table-row:hover > td,
+.ant-table-tbody > tr.ant-table-row-hover > td {
+  background: var(--table-row-hover-bg) !important;
+  transition: none !important;
+}
+
+.ant-table-tbody > tr:nth-child(2n) > td {
+  background: var(--card-bg) !important;
+}
+
+.ant-collapse,
+.ant-collapse > .ant-collapse-item,
+.ant-collapse-content,
+.ant-collapse-content-box,
+.ant-collapse > .ant-collapse-item > .ant-collapse-header {
+  background: var(--card-bg);
+  color: var(--text-color);
+  border-color: var(--border-color);
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header,
+.ant-collapse
+  > .ant-collapse-item
+  > .ant-collapse-header
+  .ant-collapse-header-text,
+.ant-collapse-content,
+.ant-collapse-content-box {
+  color: var(--text-color);
+}
+
+.ant-collapse > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
+  color: var(--text-color);
+}
+
+.ant-table {
+  color: var(--text-color);
+}
+
+.ant-table-tbody > tr > td,
+.ant-table-thead > tr > th {
+  color: var(--text-color);
+}
+
+.ant-card,
+.ant-card-body,
+.ant-card-head {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+.ant-card-bordered,
+.ant-card-head {
+  border-color: var(--border-color);
+}
+
+.ant-input,
+.ant-select-selector,
+.ant-pagination-item,
+.ant-modal-content {
+  background: var(--input-bg);
+  color: var(--text-color);
+}
+
+.ant-pagination-item-active,
+.ant-pagination-item:hover {
+  border-color: var(--link-color);
+}
+
+.markdown-body {
+  background: transparent;
+  color: var(--text-color);
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  color: var(--text-color);
+}
+
+.markdown-body pre,
+.markdown-body code {
+  background: var(--code-bg);
+  color: var(--text-color);
+}
+
+.markdown-body pre code {
+  color: inherit;
+}
+
+.markdown-body .hljs {
+  background: var(--code-bg);
+  color: var(--text-color);
+}
+
+.markdown-body blockquote {
+  color: var(--muted-text);
+  border-left-color: var(--markdown-border);
+}
+
+.markdown-body hr {
+  border-color: var(--markdown-border);
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  border-color: var(--markdown-border);
+}
+
+.markdown-body table th {
+  background: var(--card-bg);
+  color: var(--text-color);
+}
+
+.markdown-body table tr {
+  background: transparent;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background: transparent;
+}
+
+.markdown-body a {
+  color: var(--link-color);
+}
+
+/* Dark Mode Drawer Fixes */
+[data-theme="dark"] .ant-drawer-title,
+[data-theme="dark"] .ant-drawer-close {
+  color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .ant-drawer-header {
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+/* ========== 滚动条样式优化 ========== */
+
+/* 浅色模式滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+::-webkit-scrollbar-thumb:active {
+  background: rgba(0, 0, 0, 0.35);
+}
+
+/* Firefox 滚动条样式 */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.15) transparent;
+}
+
+/* 深色模式滚动条 */
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.3);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: rgba(148, 163, 184, 0.45);
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:active {
+  background: rgba(148, 163, 184, 0.6);
+}
+
+[data-theme="dark"] * {
+  scrollbar-color: rgba(148, 163, 184, 0.3) transparent;
 }

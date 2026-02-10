@@ -34,4 +34,4 @@ export default {
   hint: "使用子查询找出热门股票，计算价格波动率需要用最高价减最低价除以平均价格",
   type: "custom",
   difficulty: 2,
-} as LevelType; 
+} as LevelType;

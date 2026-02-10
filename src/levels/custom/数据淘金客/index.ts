@@ -45,4 +45,4 @@ export default {
   hint: "使用CASE WHEN进行年龄分组，子查询找出热门品类，计算VIP比例和性别比例",
   type: "custom",
   difficulty: 3,
-} as LevelType; 
+} as LevelType;

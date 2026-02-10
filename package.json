@@ -2,19 +2,90 @@
   "name": "sql-mother",
   "private": true,
   "version": "0.0.1",
+  "description": "Interactive SQL training playground desktop application",
+  "author": "SQL Training Ground Team",
+  "main": "dist-electron/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "dev:electron": "concurrently -k \"vite\" \"tsc -p tsconfig.electron.json -w\" \"wait-on http://localhost:5173 && cross-env VITE_DEV_SERVER_URL=http://localhost:5173 electron .\"",
+    "build": "vite build && tsc -p tsconfig.electron.json",
+    "icon:generate": "node scripts/generate-icons.mjs",
+    "electron:pack": "yarn icon:generate && yarn build && electron-builder",
     "preview": "vite preview"
   },
+  "build": {
+    "appId": "com.sql.training.ground",
+    "productName": "SQL Training Ground",
+    "directories": {
+      "output": "release",
+      "buildResources": "build"
+    },
+    "asar": true,
+    "asarUnpack": [
+      "**/*.wasm"
+    ],
+    "compression": "maximum",
+    "npmRebuild": false,
+    "buildDependenciesFromSource": false,
+    "removePackageScripts": true,
+    "electronLanguages": [
+      "en-US",
+      "zh-CN"
+    ],
+    "files": [
+      "dist/**/*",
+      "dist-electron/**/*",
+      "package.json",
+      "!**/*.map",
+      "!**/CHANGELOG*",
+      "!**/{test,tests,__tests__,example,examples}/**",
+      "!**/{README,README.*,readme,readme.*}"
+    ],
+    "win": {
+      "target": [
+        "nsis"
+      ],
+      "artifactName": "${productName}-${version}-Setup-${arch}.${ext}",
+      "icon": "build/icon.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "allowElevation": true,
+      "createDesktopShortcut": "always",
+      "createStartMenuShortcut": true,
+      "installerIcon": "build/icon.ico",
+      "uninstallerIcon": "build/icon.ico",
+      "installerHeaderIcon": "build/icon.ico"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "category": "public.app-category.developer-tools",
+      "icon": "build/icon.icns"
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ],
+      "category": "Development",
+      "icon": "build/icons"
+    }
+  },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.73.0",
     "@bytemd/plugin-gfm": "^1.21.0",
     "@bytemd/plugin-highlight": "^1.21.0",
     "@bytemd/vue-next": "^1.21.0",
+    "@google/generative-ai": "^0.24.1",
     "ant-design-vue": "^3.2.11",
     "github-markdown-css": "^5.2.0",
     "lodash": "^4.17.21",
     "monaco-editor": "^0.34.0",
+    "openai": "^6.18.0",
     "pinia": "^2.0.19",
     "pinia-plugin-persistedstate": "^2.1.1",
     "sql-formatter": "^9.2.0",
@@ -27,6 +98,10 @@
     "@typescript-eslint/eslint-plugin": "^5.23.0",
     "@typescript-eslint/parser": "^5.23.0",
     "@vitejs/plugin-vue": "^3.0.3",
+    "concurrently": "^8.2.2",
+    "cross-env": "^7.0.3",
+    "electron": "^31.0.2",
+    "electron-builder": "^24.13.3",
     "eslint": "^8.15.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-config-standard": "^17.0.0",
@@ -35,9 +110,12 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-vue": "^8.7.1",
+    "icon-gen": "^5.0.0",
     "prettier": "^2.7.1",
+    "sharp": "^0.34.5",
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
-    "vue-tsc": "^0.39.5"
+    "vue-tsc": "^0.39.5",
+    "wait-on": "^7.2.0"
   }
 }

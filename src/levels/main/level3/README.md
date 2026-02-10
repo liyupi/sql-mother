@@ -8,20 +8,18 @@
 
 在 SQL 查询中，我们可以使用别名语法 `{原始字段名} as {别名}` 来为查询结果的列名取一个便于理解的名称。通过使用别名，我们可以更直观地知道查询结果中每一列的含义，方便阅读和使用。
 
-
-
 ## 示例
 
 假设有一张名为 `employees` 的数据表，它存储了团队成员的信息，包括姓名（name）、年龄（age）、职位（position）等：
 
 数据表 `employees`：
 
-|   name   | age | position      |
-|----------|-----|---------------|
-|   John   | 30  | Project Manager|
-|   Alice  | 28  | Software Engineer|
-|   Bob    | 32  | Product Designer|
-|   Kate   | 26  | Marketing Specialist|
+| name  | age | position             |
+| ----- | --- | -------------------- |
+| John  | 30  | Project Manager      |
+| Alice | 28  | Software Engineer    |
+| Bob   | 32  | Product Designer     |
+| Kate  | 26  | Marketing Specialist |
 
 现在，我们使用 "别名" 来获取所有团队成员的姓名（name）和职位（position）信息，并为它们取别名为 `员工姓名` 和 `职位名称`：
 
@@ -32,24 +30,17 @@ select name as 员工姓名, position as 职位名称 from employees;
 
 > 上述代码中的 as 也可以省略，比如 `name 员工姓名` 也是 ok 的。
 
-
-
 查询结果，注意表格头的列名从英文变为了中文：
 
-|   员工姓名   | 职位名称            |
-|---------------|-------------------|
-|   John        | Project Manager    |
-|   Alice       | Software Engineer  |
-|   Bob         | Product Designer   |
-|   Kate        | Marketing Specialist |
-
-
+| 员工姓名 | 职位名称             |
+| -------- | -------------------- |
+| John     | Project Manager      |
+| Alice    | Software Engineer    |
+| Bob      | Product Designer     |
+| Kate     | Marketing Specialist |
 
 通过上述 SQL 查询语句，我们得到了团队成员名单表中所有成员的姓名和职位信息，并通过别名让查询结果更加易读和直观。
-
-
 
 ## 题目
 
 请编写一条 SQL 查询语句，从名为 `student` 的数据表中选择出所有学生的姓名（name）和年龄（age）信息，并为它们取别名为 `学生姓名` 和 `学生年龄`。
-

@@ -4,7 +4,7 @@
 
 有一张 `chicken_observation` 的表格，用于记录居民观测大浪淘鸡的信息。表格字段如下：
 
-- `observation_id`：观测记录ID，唯一标识每条观测记录
+- `observation_id`：观测记录 ID，唯一标识每条观测记录
 - `observer_name`：观测者姓名
 - `observation_date`：观测日期
 - `observation_location`：观测地点

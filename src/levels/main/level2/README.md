@@ -8,21 +8,18 @@
 
 让我们用一个形象的比喻来理解选择查询：假设你是一名班级管理者，而你的班级有一张学生名单表，上面列有每个学生的姓名（name）、年龄（age）、性别（gender）、分数（score）等信息。现在，你想了解你班级里的学生的姓名和年龄，因为这些信息能帮助你更好地了解每个学生的基本情况。所以，你只需从学生名单表中挑选出姓名（name）和年龄（age）这两列信息。
 
-
-
 ## 示例
+
 假设有一张名为 `students` 的学生数据表，它存储了班级里学生的信息，包括姓名（name）、年龄（age）、性别（gender）、分数（score）等。
 
 数据表 `students`：
 
-|   name   | age | gender | score |
-|----------|-----|--------|-------|
-|   John   | 18  |   Male |  90   |
-|   Alice  | 17  | Female |  88   |
-|   Bob    | 19  |   Male |  78   |
-|   Kate   | 18  | Female |  95   |
-
-
+| name  | age | gender | score |
+| ----- | --- | ------ | ----- |
+| John  | 18  | Male   | 90    |
+| Alice | 17  | Female | 88    |
+| Bob   | 19  | Male   | 78    |
+| Kate  | 18  | Female | 95    |
 
 现在，我们使用"选择查询"来获取所有学生的姓名（name）和性别（gender）信息，SQL 语句如下：
 
@@ -30,22 +27,16 @@
 select name, gender from students;
 ```
 
-
-
 查询结果：
 
-|   name   | gender |
-|----------|--------|
-|   John   |   Male |
-|   Alice  | Female |
-|   Bob    |   Male |
-|   Kate   | Female |
-
-
+| name  | gender |
+| ----- | ------ |
+| John  | Male   |
+| Alice | Female |
+| Bob   | Male   |
+| Kate  | Female |
 
 通过上述 SQL 查询语句，我们得到了学生名单表中所有学生的姓名和性别信息。
-
-
 
 ## 题目
 

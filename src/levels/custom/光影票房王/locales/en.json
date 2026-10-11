@@ -1,0 +1,4 @@
+{
+  "title": "Box Office Champions",
+  "hint": "Use GROUP BY to group by genre, SUM for total box office revenue, and AVG for averages."
+}

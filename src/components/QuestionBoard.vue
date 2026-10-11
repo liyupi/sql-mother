@@ -1,11 +1,11 @@
 <template>
   <div id="questionBoard">
     <a-card v-if="level" id="questionCard">
-      <md-viewer :value="level.content" />
+      <md-viewer :value="translatedLevel.content" />
       <a-divider />
       <div>
         <a-button v-if="levelNum > 0" style="float: left" @click="toPrevLevel">
-          上一关
+          {{ t("previousLesson") }}
         </a-button>
         <a-button
           v-if="levelNum < mainLevels.length - 1"
@@ -14,7 +14,7 @@
           :disabled="resultStatus !== RESULT_STATUS_ENUM.SUCCEED"
           @click="toNextLevel"
         >
-          下一关
+          {{ t("nextLesson") }}
         </a-button>
         <a-button
           v-if="levelNum === mainLevels.length - 1"
@@ -23,11 +23,11 @@
           :disabled="resultStatus !== RESULT_STATUS_ENUM.SUCCEED"
           @click="doWin"
         >
-          恭喜通关
+          {{ t("finishCourse") }}
         </a-button>
       </div>
     </a-card>
-    <a-card v-else>关卡加载失败</a-card>
+    <a-card v-else>{{ t("lessonLoadFailed") }}</a-card>
   </div>
 </template>
 
@@ -38,6 +38,8 @@ import { getCurrentLevelNum, getNextLevel, getPrevLevel } from "../levels";
 import { useRouter } from "vue-router";
 import { RESULT_STATUS_ENUM } from "../core/result";
 import MdViewer from "./MdViewer.vue";
+import { t } from "../i18n";
+import { getLessonTranslation } from "../i18n/lessons";
 
 interface Props {
   level: LevelType;
@@ -46,6 +48,7 @@ interface Props {
 
 const props = withDefaults(defineProps<Props>(), {});
 const { level } = toRefs(props);
+const translatedLevel = computed(() => getLessonTranslation(level.value));
 const router = useRouter();
 const levelNum = computed(() => {
   return getCurrentLevelNum(level.value);
@@ -68,7 +71,7 @@ watch([levelNum], () => {
  * 通关
  */
 const doWin = () => {
-  alert("恭喜通关，有收获的话，欢迎给本项目一个 star 哦~");
+  alert(t("courseCompleted"));
   window.open("https://github.com/liyupi/sql-mother");
 };
 

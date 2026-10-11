@@ -1,0 +1,4 @@
+{
+  "title": "The Food Empire",
+  "hint": "Use GROUP BY to group by dish category, then calculate sales, order counts, average unit prices, and the percentage of member orders."
+}

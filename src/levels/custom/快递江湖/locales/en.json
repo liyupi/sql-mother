@@ -1,0 +1,4 @@
+{
+  "title": "The Delivery League",
+  "hint": "Use JULIANDAY for time differences, together with window functions and a subquery. Sort percentage values numerically, accounting for the % sign."
+}

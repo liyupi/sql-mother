@@ -1,12 +1,12 @@
 <template>
   <div id="sqlEditor">
     <div ref="editorRef" :style="editorStyle" />
-    <a-space :size="16" style="margin-top: 16px">
+    <a-space :size="16" wrap style="margin-top: 16px">
       <a-button type="primary" style="width: 180px" @click="doSubmit">
-        运行
+        {{ t("run") }}
       </a-button>
-      <a-button @click="doFormat">格式化</a-button>
-      <a-button @click="doReset">重置</a-button>
+      <a-button @click="doFormat">{{ t("format") }}</a-button>
+      <a-button @click="doReset">{{ t("reset") }}</a-button>
     </a-space>
   </div>
 </template>
@@ -19,7 +19,7 @@ import {
   ref,
   toRaw,
   toRefs,
-  watchEffect,
+  watch,
 } from "vue";
 import * as monaco from "monaco-editor";
 import { format } from "sql-formatter";
@@ -29,6 +29,7 @@ import { QueryExecResult } from "sql.js";
 // eslint-disable-next-line no-undef
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor;
 import { message } from "ant-design-vue";
+import { t } from "../i18n";
 
 (self as any).MonacoEnvironment = {
   getWorker(_: any, label: any) {
@@ -55,11 +56,16 @@ const inputEditor = ref<IStandaloneCodeEditor>();
 const editorRef = ref<HTMLElement>();
 const db = ref();
 
-watchEffect(async () => {
+// Only a new lesson or editor initializes the database. Language changes must
+// preserve the learner's query, results, and playground database.
+watch([() => level.value.key, inputEditor], async () => {
+  if (!inputEditor.value) {
+    return;
+  }
   // 初始化 / 更新默认 SQL
   if (inputEditor.value) {
     toRaw(inputEditor.value).setValue(
-      "-- 请在此处输入 SQL\n" + level.value.defaultSQL
+      "-- " + t("sqlPlaceholder") + "\n" + level.value.defaultSQL
     );
   }
   // 初始化 / 更新 DB
@@ -105,7 +111,7 @@ const doSubmit = () => {
     // 向外层传递结果
     onSubmit?.value(inputStr, result, answerResult);
   } catch (error: any) {
-    message.error("语句错误，" + error.message);
+    message.error(t("queryError", { error: error.message }));
     // 向外层传递结果
     onSubmit?.value(inputStr, [], [], error.message);
   }

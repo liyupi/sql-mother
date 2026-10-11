@@ -14,7 +14,7 @@
         <a-collapse v-model:active-key="activeKeys" style="margin-top: 16px">
           <a-collapse-panel
             key="result"
-            header="查看执行结果"
+            :header="t('showResults')"
             class="result-collapse-panel"
           >
             <sql-result
@@ -26,17 +26,17 @@
               style="margin-top: 16px"
             />
           </a-collapse-panel>
-          <a-collapse-panel v-if="level.hint" key="hint" header="查看提示">
-            <p>{{ level.hint }}</p>
+          <a-collapse-panel v-if="translatedLevel.hint" key="hint" :header="t('showHint')">
+            <p>{{ translatedLevel.hint }}</p>
           </a-collapse-panel>
-          <a-collapse-panel key="ddl" header="查看建表语句">
+          <a-collapse-panel key="ddl" :header="t('showSchema')">
             <code-editor
               :init-value="level.initSQL"
               :editor-style="{ minHeight: '400px' }"
               read-only
             />
           </a-collapse-panel>
-          <a-collapse-panel key="answer" header="查看答案">
+          <a-collapse-panel key="answer" :header="t('showAnswer')">
             <code-editor
               :init-value="level.answer"
               :editor-style="{ minHeight: '400px' }"
@@ -60,6 +60,8 @@ import { QueryExecResult } from "sql.js";
 import { allLevels, getLevelByKey } from "../levels";
 import { checkResult } from "../core/result";
 import CodeEditor from "../components/CodeEditor.vue";
+import { t } from "../i18n";
+import { getLessonTranslation } from "../i18n/lessons";
 
 interface IndexPageProps {
   levelKey?: string;
@@ -74,6 +76,7 @@ const level = computed(() => {
 });
 
 const result = ref<QueryExecResult[]>([]);
+const translatedLevel = computed(() => getLessonTranslation(level.value));
 const answerResult = ref<QueryExecResult[]>([]);
 const errorMsgRef = ref<string>();
 const resultStatus = ref<number>(-1);

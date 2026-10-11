@@ -1,0 +1,4 @@
+{
+  "title": "Angels in White",
+  "hint": "Use GROUP BY to group the data, a subquery to find the most popular time slot, and CASE WHEN to calculate the gender ratio."
+}

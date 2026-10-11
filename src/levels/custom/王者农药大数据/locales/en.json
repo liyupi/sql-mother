@@ -1,0 +1,4 @@
+{
+  "title": "Battle Arena Analytics",
+  "hint": "Use CASE WHEN to count victories and HAVING to filter by match count. Remember to handle matches with 0 deaths."
+}

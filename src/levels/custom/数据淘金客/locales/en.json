@@ -1,0 +1,4 @@
+{
+  "title": "Mining for Customer Insights",
+  "hint": "Use CASE WHEN to assign age groups and a subquery to find the most popular category. Calculate the VIP percentage and gender ratio for each group."
+}

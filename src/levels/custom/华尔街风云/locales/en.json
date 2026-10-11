@@ -1,0 +1,4 @@
+{
+  "title": "Wall Street in Focus",
+  "hint": "Combine a subquery with a window function. Pay attention to where HAVING belongs and when window functions are evaluated."
+}

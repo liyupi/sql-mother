@@ -2,8 +2,8 @@
   <div id="levelsPage">
     <!-- 页面标题 -->
     <div class="page-header">
-      <h1 class="page-title">⚔️ 关卡挑战</h1>
-      <p class="page-description">选择你的挑战关卡，开始SQL学习之旅！</p>
+      <h1 class="page-title">⚔️ {{ t("challengesTitle") }}</h1>
+      <p class="page-description">{{ t("challengesDescription") }}</p>
     </div>
 
     <!-- 关卡内容 -->
@@ -13,8 +13,8 @@
         <div class="level-section">
           <div class="section-header">
             <h2 class="section-title">
-              🎯 主线关卡
-              <a-tag color="blue" size="small">基础必修</a-tag>
+              🎯 {{ t("mainLessons") }}
+              <a-tag color="blue" size="small">{{ t("fundamentals") }}</a-tag>
             </h2>
           </div>
           
@@ -27,14 +27,14 @@
             >
               <div class="level-number">{{ index + 1 }}</div>
               <div class="level-content">
-                <h3 class="level-title">{{ level.title }}</h3>
+                <h3 class="level-title">{{ getLessonTranslation(level).title }}</h3>
                 <div class="level-meta">
-                  <a-tag color="blue" size="small">主线</a-tag>
-                  <span class="level-difficulty">⭐ 基础</span>
+                  <a-tag color="blue" size="small">{{ t("mainTag") }}</a-tag>
+                  <span class="level-difficulty">⭐ {{ t("basic") }}</span>
                 </div>
               </div>
               <div class="level-action">
-                <a-button type="primary" size="small">挑战</a-button>
+                <a-button type="primary" size="small">{{ t("challenge") }}</a-button>
               </div>
             </div>
           </div>
@@ -46,8 +46,8 @@
         <div class="level-section">
           <div class="section-header">
             <h2 class="section-title">
-              🌟 自定义关卡
-              <a-tag color="orange" size="small">实战进阶</a-tag>
+              🌟 {{ t("customLessons") }}
+              <a-tag color="orange" size="small">{{ t("appliedPractice") }}</a-tag>
             </h2>
           </div>
           
@@ -59,14 +59,14 @@
               @click="goToLevel(level.key)"
             >
               <div class="level-content">
-                <h3 class="level-title">{{ level.title }}</h3>
+                <h3 class="level-title">{{ getLessonTranslation(level).title }}</h3>
                 <div class="level-meta">
-                  <a-tag color="orange" size="small">实战</a-tag>
+                  <a-tag color="orange" size="small">{{ t("practiceTag") }}</a-tag>
                   <span class="level-difficulty">{{ getDifficultyText(level.difficulty) }}</span>
                 </div>
               </div>
               <div class="level-action">
-                <a-button type="primary" size="small">挑战</a-button>
+                <a-button type="primary" size="small">{{ t("challenge") }}</a-button>
               </div>
             </div>
           </div>
@@ -80,6 +80,8 @@
 import { useRouter } from "vue-router";
 import mainLevels from "../levels/mainLevels";
 import customLevels from "../levels/customLevels";
+import { t } from "../i18n";
+import { getLessonTranslation } from "../i18n/lessons";
 
 const router = useRouter();
 
@@ -91,13 +93,13 @@ const goToLevel = (levelKey: string) => {
 const getDifficultyText = (difficulty?: number) => {
   switch (difficulty) {
     case 1:
-      return '⭐ 简单';
+      return '⭐ ' + t("easy");
     case 2:
-      return '⭐⭐ 中等';
+      return '⭐⭐ ' + t("medium");
     case 3:
-      return '⭐⭐⭐ 困难';
+      return '⭐⭐⭐ ' + t("hard");
     default:
-      return '⭐⭐ 中等';
+      return '⭐⭐ ' + t("medium");
   }
 };
 </script>

@@ -1,0 +1,4 @@
+{
+  "title": "Advanced Queries - Subqueries",
+  "hint": "First query all class IDs, then find students whose class_id is in that set of IDs."
+}

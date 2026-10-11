@@ -1,0 +1,4 @@
+{
+  "title": "A World of Books",
+  "hint": "Use GROUP BY to group the data and a subquery to find the book with the highest revenue in each category."
+}

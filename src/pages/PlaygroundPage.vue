@@ -1,6 +1,6 @@
 <template>
   <div id="playgroundPage">
-    <h2>请输入任意 SQL 语句，尽情玩耍~</h2>
+    <h2>{{ t("playgroundDescription") }}</h2>
     <a-row :gutter="[16, 16]">
       <a-col :md="12" :xs="24">
         <sql-editor
@@ -8,7 +8,7 @@
           :editor-style="{ height: 480 + 'px' }"
           :on-submit="onSubmit"
         />
-        <a-card title="执行历史" style="margin-top: 16px">
+        <a-card :title="t('queryHistory')" style="margin-top: 16px">
           <a-collapse v-if="sqlHistoryList.length > 0">
             <a-collapse-panel
               v-for="(data, index) in sqlHistoryList"
@@ -18,7 +18,7 @@
               <sql-result :result="data.result" :error-msg="data.errorMsg" />
             </a-collapse-panel>
           </a-collapse>
-          <div v-else>暂无执行历史</div>
+          <div v-else>{{ t("noQueryHistory") }}</div>
         </a-card>
       </a-col>
       <a-col :md="12" :xs="24">
@@ -34,6 +34,7 @@ import { ref } from "vue";
 import { QueryExecResult } from "sql.js";
 import SqlResult from "../components/SqlResult.vue";
 import { allLevels } from "../levels";
+import { t } from "../i18n";
 
 const result = ref<QueryExecResult[]>([]);
 const sqlHistoryList = ref<any>([]);

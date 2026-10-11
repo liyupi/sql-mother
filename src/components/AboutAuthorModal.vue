@@ -1,7 +1,7 @@
 <template>
   <a-modal
     v-model:visible="visible"
-    title="关于作者"
+    :title="t('aboutAuthor')"
     :footer="null"
     width="400px"
     centered
@@ -9,23 +9,23 @@
   >
     <div class="about-content">
       <div class="author-intro">
-        <h3>👨‍💻 程序员鱼皮</h3>
-        <p>全栈开发者、技术博主，帮助数万名学员进入互联网行业</p>
+        <h3>👨‍💻 {{ t("authorName") }}</h3>
+        <p>{{ t("authorIntro") }}</p>
       </div>
       
       <div class="benefits-section">
-        <h4>🎁 关注公众号获取</h4>
-        <p class="benefits-text">免费编程学习路线、简历模板、面试题解、项目教程、AI 知识库、交流群等丰富资源</p>
+        <h4>🎁 {{ t("authorResourcesTitle") }}</h4>
+        <p class="benefits-text">{{ t("authorResources") }}</p>
       </div>
 
       <div class="qrcode-section">
         <div class="qrcode-container">
           <img 
             :src="qrcodeUrl" 
-            alt="鱼皮公众号二维码" 
+            :alt="t('authorQrAlt')"
             class="qrcode-image"
           />
-          <p class="qrcode-text">扫码关注「程序员鱼皮」</p>
+          <p class="qrcode-text">{{ t("authorQrCaption") }}</p>
         </div>
       </div>
     </div>
@@ -35,6 +35,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import qrcodeImage from '../assets/qrcode-mpcoder_yupi.jpg';
+import { t } from "../i18n";
 
 interface Props {
   visible: boolean;
@@ -129,4 +130,4 @@ const handleClose = () => {
     height: 140px;
   }
 }
-</style> 
+</style>

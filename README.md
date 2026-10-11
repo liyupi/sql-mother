@@ -274,6 +274,12 @@ export const runSQL = (db: Database, sql: string) => {
 
 ## 贡献指南
 
+### 多语言翻译
+
+网站支持简体中文和 English，可在页头切换。欢迎继续贡献更多语言，详见 [多语言贡献指南](./doc/i18n.md) / [Translation guide](./doc/i18n.en.md)。
+
+英文教程保留原始 SQL 标识符和数据值，覆盖全部 30 个主线关卡和 15 个已启用的自定义关卡。
+
 欢迎各路好汉参与贡献，利人利己~
 
 目前有几种推荐的贡献方式：

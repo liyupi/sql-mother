@@ -1,0 +1,4 @@
+{
+  "title": "Delivery Speed Champions",
+  "hint": "Use SUM for totals and HAVING to filter by total order count. Check the formulas for success rate and efficiency."
+}

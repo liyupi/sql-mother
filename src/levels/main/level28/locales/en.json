@@ -1,0 +1,4 @@
+{
+  "title": "Advanced Queries - Window Functions - RANK",
+  "hint": "Pay attention to which columns belong in PARTITION BY and ORDER BY."
+}

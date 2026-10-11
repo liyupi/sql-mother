@@ -1,0 +1,4 @@
+{
+  "title": "Golden Bull Investments",
+  "hint": "Use a subquery to find the stock with the highest traded value. For volatility, subtract the lowest price from the highest price and divide by the average price."
+}
